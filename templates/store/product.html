@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ products.name }}{% endblock title %}
+
+{% block content %}
+<!-- Product Details Section -->
+<style>
+    /* Custom Styles */
+    .custom-image-border {
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .custom-image-border:hover {
+        border-color: #007bff;
+        transform: scale(1.05);
+    }
+
+    .custom-border {
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .custom-border:hover {
+        border-color: #28a745;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .product-price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: black;
+    }
+
+    .sale-price {
+        color: #dc3545;
+        font-weight: bold;
+    }
+
+    .hover-gold {
+        color: #d4af37;
+        transition: color 0.3s;
+    }
+
+    .hover-gold:hover {
+        color: #b18a3a;
+    }
+
+    .badge {
+        font-size: 0.9rem;
+    }
+</style>
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <!-- Product Image -->
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm">
+                    <img class="card-img-top custom-image-border" src="{{ products.image.url }}" alt="{{ products.name }}">
+                </div>
+            </div>
+
+            <!-- Product Details -->
+            <div class="col-md-6">
+                <div class="product-card custom-border">
+                    <h1 class="display-5 fw-bolder hover-gold">{{ products.name }}</h1>
+                    <div class="fs-5 mb-4">
+                        {% if products.is_sale %}
+                            <span class="text-decoration-line-through text-muted product-price">{{ products.price }} RP</span>
+                            <span class="sale-price">{{ products.sale_price }} RP</span>
+                        {% else %}
+                            <span class="product-price">{{ products.price }} RP</span>
+                        {% endif %}
+                    </div>
+                    <p class="lead text-muted hover-gold">{{ products.description }}</p>
+                    <p class="text-muted mb-4">Category: <span class="badge bg-info text-dark">{{ products.category }}</span></p>
+                    
+                    <!-- Action Button -->
+                    <button type="button" value="{{ products.id }}" class="btn btn-secondary" id="add-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Bootstrap core JS -->
+<script>
+    // CSRF token setup function
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    // Add to cart AJAX
+    $(document).on('click', '#add-cart', function(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart_add" %}',
+            headers: { 'X-CSRFToken': csrftoken },
+            data: {
+                productid: $('#add-cart').val(),
+                action: 'post'
+            },
+            success: function(json){
+                document.getElementById('cart_quantity').textContent = json.qty;
+            },
+            error: function(xhr, errmsg, err){
+                console.log(xhr.status + ': ' + xhr.responseText);
+            }
+        });
+    });
+</script>
+
+{% endblock content %}

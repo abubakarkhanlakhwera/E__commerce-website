@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Category - {{ category.name }}{% endblock title %}
+
+{% block content %}
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5 text-center text-white">
+        <h1 class="display-4 fw-bolder animate__animated animate__fadeIn">{{ category.name }}</h1>
+        <p class="lead fw-normal text-white-50 mb-0">Discover products in {{ category.name }}</p>
+    </div>
+</header>
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        {% if products %}
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for product in products %}
+            <div class="col mb-5">
+                <div class="card h-100 shadow-sm">
+                    <!-- Product image-->
+                    <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}" />
+                    <!-- Product details-->
+                    <div class="card-body p-4 text-center">
+                        <h5 class="fw-bolder">{{ product.name }}</h5>
+                        {% if product.is_sale %}
+                        <strike><p>{{ product.price }} RP</p></strike>&nbsp
+                        <p>{{ product.sale_price }} RP</p>
+                        {% else %}
+                        <p>{{ product.price }} RP</p>
+                        {% endif %}
+                        <p class="text-muted">{{ product.description }}</p>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href='{% url "product" product.id %}'>View Product</a></div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <h3>No products found in {{ category.name }}</h3>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% block footer %}
+<div class="container text-center text-white">
+    <p class="m-0">Copyright &copy; Your Website 2023</p>
+</div>
+{% endblock footer %}
+{% endblock content %}
