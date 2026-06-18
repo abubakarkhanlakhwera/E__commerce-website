@@ -1,41 +1,29 @@
-# E-Commerce Django Project
+# Django E-Commerce Website
 
-**Status: In Progress** 🚧  
-I’m currently working on developing a full-featured e-commerce website using Django! Stay tuned for updates, as this project will soon provide a fully functional, customizable e-commerce platform for you to explore or even use as a base for your own online store.
+A Django e-commerce website project with authentication and store workflows.
 
-## Project Overview
+## Purpose
 
-This Django project aims to offer a robust foundation for an e-commerce website, complete with essential features such as:
+Online stores need product browsing, user accounts, and order-related flows. This repository explores an e-commerce foundation using Django as the backend web framework.
 
-- **User Registration and Authentication**
-- **Product Catalog** with categories and product details
-- **Shopping Cart** functionality
-- **Order Management** for a smooth checkout process
-- **Admin Dashboard** for managing products, orders, and users
+## What This Shows
 
-## Key Features (In Progress)
+- Django e-commerce structure
+- User/authentication flow concepts
+- Storefront-style backend development
 
-1. **Dynamic Product Listings**: Categorized product views with filtering and search capabilities.
-2. **User-Friendly Cart**: Users can add, remove, or modify items in their cart and proceed to checkout.
-3. **Order Tracking and History**: Registered users can view their past orders and track ongoing orders.
-4. **Admin Management**: Easily manage products, orders, and user roles from a built-in Django admin panel.
+## Stack
 
-## Future Plans
+- Django
+- Python
+- HTML/CSS
 
-As development progresses, I plan to add more features, such as:
+## Next Improvements
 
-- **Payment Integration**: For real-world applications.
-- **Discounts and Promotions**: Manageable through the admin dashboard.
-- **Product Reviews and Ratings**: To enhance user engagement.
+- Add screenshots of product/cart pages
+- Document database models
+- Add setup and seed-data instructions
 
-## Getting Started
+## Author
 
-Once the project is complete, detailed instructions will be added on how to set up and use the project on your local machine.
-
----
-
-Stay tuned! Soon, you'll have access to a free, customizable e-commerce website template built with Django. ✨
-
-## License
-
-This project will be licensed under the MIT License upon completion.
+Abubakar Khan Lakhwera
